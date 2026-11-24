@@ -1,0 +1,22 @@
+{
+  "name": "prumo-mobile",
+  "private": true,
+  "version": "0.1.0",
+  "description": "App Android do Prumo: empacota o prumo-web (por tag) com o Capacitor.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "scripts/build.sh",
+    "deploy": "scripts/deploy.sh",
+    "icones": "capacitor-assets generate --android --iconBackgroundColor '#0B392E' --splashBackgroundColor '#0B392E'"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.6.2",
+    "@capacitor/core": "8.6.2"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "8.6.2"
+  }
+}

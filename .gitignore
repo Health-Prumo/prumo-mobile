@@ -1,0 +1,14 @@
+node_modules/
+# Clone do prumo-web na tag de prumo-web.ref (feito pelo scripts/build.sh)
+web/
+# APKs gerados
+saida/
+*.apk
+*.aab
+# Chave de assinatura e configuração com valores reais: nunca no repositório
+*.jks
+*.keystore
+.env
+.env.*
+!.env.example
+.DS_Store

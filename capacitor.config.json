@@ -1,0 +1,12 @@
+{
+  "appId": "online.healthprumo.app",
+  "appName": "Prumo",
+  "webDir": "web/dist",
+  "server": {
+    "androidScheme": "https",
+    "hostname": "app.healthprumo.online"
+  },
+  "android": {
+    "allowMixedContent": false
+  }
+}
