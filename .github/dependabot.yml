@@ -11,6 +11,10 @@ updates:
     directory: /android
     schedule:
       interval: weekly
+    ignore:
+      # O Capacitor 8 usa o Android Gradle Plugin 8, que não roda no Gradle 9.
+      - dependency-name: gradle-wrapper
+        update-types: ['version-update:semver-major']
   - package-ecosystem: github-actions
     directory: /
     schedule:

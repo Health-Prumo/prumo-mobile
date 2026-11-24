@@ -13,6 +13,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:background">@null</item>
+        <!-- Esmeralda atrás das barras do sistema (em WebViews antigos, que não desenham por baixo delas). -->
+        <item name="android:windowBackground">@color/prumoEsmeralda</item>
     </style>
 
 
