@@ -45,6 +45,17 @@ aws s3 cp "$APK" "s3://$BUCKET/prumo.apk" --profile "$PERFIL" \
   --content-type "$TIPO_APK" --content-disposition "attachment; filename=prumo-${VERSAO}.apk" \
   --cache-control "no-cache"
 
+# versao.json: o app lê para avisar que há versão nova (AtualizacaoPlugin). Vai depois dos APKs,
+# para o aviso nunca apontar para um arquivo que ainda não subiu.
+IFS=. read -r MAJ MIN PAT <<< "$VERSAO"
+CODIGO=$(( MAJ * 10000 + MIN * 100 + PAT ))
+manifesto="$(mktemp)"
+printf '{"versao":"%s","versionCode":%d,"apk":"prumo-%s.apk","sha256":"%s"}\n' \
+  "$VERSAO" "$CODIGO" "$VERSAO" "$SHA256" > "$manifesto"
+aws s3 cp "$manifesto" "s3://$BUCKET/versao.json" --profile "$PERFIL" \
+  --cache-control "no-cache" --content-type "application/json"
+rm -f "$manifesto"
+
 # Página de download com versão e hash preenchidos.
 pagina="$(mktemp)"
 sed -e "s/{{VERSAO}}/$VERSAO/g" -e "s/{{WEB_REF}}/$REF/g" -e "s/{{SHA256}}/$SHA256/g" \
@@ -56,6 +67,6 @@ aws s3 cp site/simbolo.svg "s3://$BUCKET/simbolo.svg" --profile "$PERFIL" \
 rm -f "$pagina"
 
 aws cloudfront create-invalidation --profile "$PERFIL" \
-  --distribution-id "$DISTRIBUTION_ID" --paths "/" "/index.html" "/prumo.apk" >/dev/null
+  --distribution-id "$DISTRIBUTION_ID" --paths "/" "/index.html" "/prumo.apk" "/versao.json" >/dev/null
 
 echo "Publicado: https://download.healthprumo.online/prumo.apk (v$VERSAO, sha256 $SHA256)"

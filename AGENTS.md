@@ -7,7 +7,7 @@ App Android do **Prumo**, o coach de bem-estar com IA que responde "como estou h
 ## Como funciona
 
 - **Este repositório não tem telas.** Ele empacota o [prumo-web](https://github.com/Health-Prumo/prumo-web) num APK com o **Capacitor 8**.
-- A versão do front fica fixada **por tag** em `prumo-web.ref` (hoje `v0.2.0`). O `scripts/build.sh` clona o prumo-web nessa tag em `web/`, roda o build do Vite e monta o APK. É o mesmo padrão do `tf-environments` com o `tf-blueprint`.
+- A versão do front fica fixada **por tag** em `prumo-web.ref` (hoje `v0.4.0`). O `scripts/build.sh` clona o prumo-web nessa tag em `web/`, roda o build do Vite e monta o APK. É o mesmo padrão do `tf-environments` com o `tf-blueprint`.
 - **Mudança de tela ou texto vai no prumo-web**, nunca aqui. Para levar ao app: tag nova no prumo-web, atualize `prumo-web.ref`, suba a versão no `package.json` e publique.
 - O app usa a mesma API (`https://api.healthprumo.online`) e o mesmo Cognito do site.
 
@@ -20,6 +20,14 @@ App Android do **Prumo**, o coach de bem-estar com IA que responde "como estou h
 | Versão | `version` do `package.json`; `versionCode = maior*10000 + menor*100 + correção` | O `versionCode` precisa sempre crescer para o Android aceitar a atualização |
 | Android mínimo | 7.0 (API 24), alvo API 36 | Padrão do Capacitor 8 |
 | Distribuição | APK em `https://download.healthprumo.online` (S3 + CloudFront, unidade `dev/mobile` do `tf-environments`) | Sem Play Store por enquanto |
+
+## Atualização dentro do app
+
+- O plugin nativo `AtualizacaoPlugin` (em `android/app/src/main/java/online/healthprumo/app/`, registrado no `MainActivity`) lê `https://download.healthprumo.online/versao.json`, que o `scripts/deploy.sh` publica com `versao`, `versionCode`, `apk` e `sha256`.
+- Se o `versionCode` publicado for maior que o instalado, o prumo-web mostra o aviso "Nova versão do Prumo" (`src/components/AvisoAtualizacao.tsx`). No toque em **Atualizar**, o plugin baixa o APK, confere o SHA-256 e abre o instalador do Android.
+- Na primeira vez, o Android pede para permitir que o Prumo instale apps (permissão `REQUEST_INSTALL_PACKAGES`). Fora da Play Store, a tela de confirmação do instalador sempre aparece: não dá para atualizar em silêncio.
+- A atualização mantém os dados e o login. Só funciona com a **mesma chave de assinatura** e `versionCode` maior.
+- Vale a partir da 0.3.0. Quem tem uma versão anterior instala a 0.3.0 por cima, pelo site, sem desinstalar.
 
 ## Chave de assinatura
 

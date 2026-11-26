@@ -44,4 +44,6 @@ O APK de distribuição precisa da chave de assinatura, que fica fora do reposit
 3. `scripts/build.sh release` e `scripts/deploy.sh`.
 4. Commit e tag `vX.Y.Z` neste repositório.
 
+O `deploy.sh` também publica o `versao.json`. Quem já tem o app (a partir da 0.3.0) vê o aviso "Nova versão do Prumo" e atualiza com um toque, sem desinstalar e sem perder o login.
+
 > O Prumo não substitui orientação médica.
