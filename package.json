@@ -1,7 +1,7 @@
 {
   "name": "prumo-mobile",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "App Android do Prumo: empacota o prumo-web (por tag) com o Capacitor.",
   "engines": {
     "node": ">=20"

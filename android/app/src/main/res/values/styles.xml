@@ -18,7 +18,11 @@
     </style>
 
 
+    <!-- Abertura (Android 7 a 16, pela androidx core-splashscreen): esmeralda com o símbolo parado no centro.
+         Logo depois, a AberturaAnimada assume na mesma posição e anima o fio de prumo. -->
     <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
-        <item name="android:background">@drawable/splash</item>
+        <item name="windowSplashScreenBackground">@color/prumoEsmeralda</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_simbolo</item>
+        <item name="postSplashScreenTheme">@style/AppTheme.NoActionBar</item>
     </style>
 </resources>

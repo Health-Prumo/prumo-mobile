@@ -49,6 +49,13 @@ BUCKET=... DISTRIBUTION_ID=... scripts/deploy.sh   # publica em download.healthp
 
 Requisitos: Node 20+, Java 21 e o Android SDK (`ANDROID_HOME`, padrão `~/Android/Sdk`, com `platforms;android-36` e `build-tools`).
 
+## Abertura animada
+
+- Igual em todas as versões (Android 7 em diante). O splash do sistema (`androidx core-splashscreen`, tema `AppTheme.NoActionBarLaunch`) mostra o esmeralda com o símbolo parado. Logo depois, a `AberturaAnimada` (camada nativa por cima do WebView) assume na mesma posição: o fio de prumo balança e para alinhado, e o nome "Prumo" aparece no rodapé.
+- A camada só sai quando o React já desenhou a primeira tela (confere o `#root` do WebView) e depois de pelo menos 1,5 s. Nunca passa de 5 s.
+- Desenhos em `android/app/src/main/res/drawable/`: `splash_simbolo.xml` (símbolo parado), `splash_simbolo_animado.xml` (balanço do fio) e `splash_marca.xml` (nome). Vêm do `simbolo.svg` e do `logo-horizontal.svg` do repositório `prumo`. Se a marca mudar, gere de novo a partir deles.
+- Os `splash.png` gerados pelo `npm run icones` não são mais usados.
+
 ## Ícone e splash
 
 - Fontes em `assets/` (geradas a partir de `assets/brand/png/icone-app-1024.png` do repositório `prumo`). `npm run icones` regenera os arquivos do Android.
